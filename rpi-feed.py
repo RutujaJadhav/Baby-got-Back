@@ -45,7 +45,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     cv2.imwrite("input.jpg",image)
     lab_img=cv2.cvtColor(image,cv2.COLOR_BGR2LAB)
     l_c,a_c,b_c=cv2.split(lab_img)
-    if (np.average(l_c))>100:
+    if (np.average(l_c))>100: #light threshold
         print ("Daylight")
     
         with open(image_path, mode="rb") as test_data:
@@ -60,7 +60,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     else:
         print ("Infrared")    
         with open(image_path, mode="rb") as test_data:
-            results=predictor_i.predict_image(project_id, test_data, iteration_id)
+            results=predictor_i.predict_image(project_id_i, test_data, iterationId_i)
         im=np.array(image,dtype=np.uint8)
         res=np.asarray([[p.tag_name,p.probability, p.bounding_box.left, p.bounding_box.top, p.bounding_box.width, p.bounding_box.height] for p in results.predictions])
         classes=res[res[:,1].astype(np.float)>thresh]
@@ -86,12 +86,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         cv2.putText(im,label,p1,cv2.FONT_HERSHEY_SIMPLEX,0.4,(255,255,255),1)
         print (obj)
         print (obj_loc)  
-        baby_coords=obj_loc[obj.index('Baby')]
-        for objdist in obj_loc:
-            d=findDist(baby_coords,objdist)
-            if d>0 and d<100:
-                print("Objects too close are")
-                tooclose.append([obj[obj_loc.index(objdist)],int(d)])       
+        if 'Baby' in obj:
+            
+            baby_coords=obj_loc[obj.index('Baby')]
+            for objdist in obj_loc:
+                d=findDist(baby_coords,objdist)
+                if d>0 and d<100:
+                    print("Objects too close are")
+                    tooclose.append([obj[obj_loc.index(objdist)],int(d)])       
     
     print (tooclose) ####DISPLAYS OBJECTS CLOSE TO THE BABY AND THE DISTANCE
     cv2.imwrite("output.jpg",im)
