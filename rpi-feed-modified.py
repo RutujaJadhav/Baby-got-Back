@@ -93,11 +93,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                 d=findDist(baby_coords,objdist)
                 if d>0 and d<100:
                     
-                    highrisk.append([obj[obj_loc.index(objdist)],int(d)])
+                    highrisk.append(obj[obj_loc.index(objdist)])
                 elif d>100 and d<200:
-                    mediumrisk.append([obj[obj_loc.index(objdist)],int(d)])
+                    mediumrisk.append(obj[obj_loc.index(objdist)])
                 elif d>200:
-                    lowrisk.append([obj[obj_loc.index(objdist)],int(d)])
+                    lowrisk.append(obj[obj_loc.index(objdist)])
 
     print ("highrisk"+ str(highrisk)) ####DISPLAYS OBJECTS CLOSE TO THE BABY AND THE DISTANCE
     print ("mediumrisk"+ str(mediumrisk))
