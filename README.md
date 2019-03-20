@@ -8,5 +8,3 @@ The current baby monitor focus on the baby alone without giving much attention t
 
 One potential environmental risk is the presence of soft animals as pillows, blankets and stuffed animals too close to the baby. High temperature/polluted air is another risk which all are collectively monitored by 'Baby Got Back'.
 
-![GitHub Logo](/images/logo.png)
-Format: ![Alt Text](/images/1)
